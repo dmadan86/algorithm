@@ -1,40 +1,39 @@
 #include "stdio.h"
+#include "time.h"
 
-void bubble_sort(int iarr[], int num);
 int main (int argc, char *argv[]) {
-   int arr[30], num, i;
- 
-   printf("\nEnter no of elements :");
-   scanf("%d", &num);
- 
-   printf("\nEnter array elements :");
-   for (i = 0; i < num; i++)
-      scanf("%d", &arr[i]);
- 
-   bubble_sort(arr, num);
-   getch();
+
+	int arr[25000],
+		num = 0, 
+		i = 0,
+		j = 0,
+		len = 25000,
+		temp;		
+		
+	//generating random number
+	for(i=0;i<len;i++){
+		arr[i] = (rand() % len)+1;	
+	}	
+	
+	//Total Time taken
+	clock_t start, stop;
+	double timeSpan;
+	
+	start = clock();
+	for(i=1;i<len;i++){
+		for(j=0;j<len-1;j++){
+			if(arr[j] > arr[j+1]){
+				temp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = temp;
+			}		
+		}
+	}
+	stop = clock();
+	timeSpan = (double)(stop - start) / CLOCKS_PER_SEC;
+	
+	printf("Sorted array length: %d, time taken to sort(bubble sort): %f sec", len, timeSpan);
+	getch(); 
 }
- 
-void bubble_sort(int iarr[], int num) {
-   int i, j, k, temp;
- 
-   printf("\nUnsorted Data:");
-   for (k = 0; k < num; k++) {
-      printf("%5d", iarr[k]);
-   }
- 
-   for (i = 1; i < num; i++) {
-      for (j = 0; j < num - 1; j++) {
-         if (iarr[j] > iarr[j + 1]) {
-            temp = iarr[j];
-            iarr[j] = iarr[j + 1];
-            iarr[j + 1] = temp;
-         }
-      }
- 
-      printf("\nAfter pass %d : ", i);
-      for (k = 0; k < num; k++) {
-         printf("%5d", iarr[k]);
-      }
-   }
-}
+
+
